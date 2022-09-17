@@ -154,7 +154,7 @@ const AddTransactionView = ({ toggleAddTxn, updateTransactions }) => {
 
 const OverviewComponent = ({ updateTransactions, expense, income }) => {
 
-    const [isAddTxnVisible, toggleAddTxn] = useState(true);
+    const [isAddTxnVisible, toggleAddTxn] = useState(false);
 
     return (
         <Container>

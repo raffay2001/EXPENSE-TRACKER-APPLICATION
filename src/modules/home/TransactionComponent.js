@@ -52,6 +52,21 @@ const TransactionComponent = ({ transactions }) => {
     const [filteredTransactions, setFilteredTransactions] = useState(transactions);
     const [searchText, setSearchText] = useState('');
 
+    const filterData = (searchText) => {
+        if (!searchText || !searchText.trim().length) {
+            setFilteredTransactions(transactions);
+            return;
+        }
+        let txn = [...transactions];
+        txn = txn.filter(
+            (payload) => (payload.desc.toLowerCase().includes(searchText.toLowerCase()))
+        );
+        setFilteredTransactions(txn);
+    }
+
+    useEffect(() => {
+        filterData(searchText);
+    }, [transactions]);
 
     return (
         <Container>
@@ -60,10 +75,10 @@ const TransactionComponent = ({ transactions }) => {
                 type="text"
                 placeholder='Search'
                 value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
+                onChange={(e) => {setSearchText(e.target.value); filterData(e.target.value)}}
             />
             {
-                transactions.length ? transactions.map((transaction) => <TransactionCell transaction={transaction} key={transaction.id} />) : ''
+                filteredTransactions.length ? filteredTransactions.map((transaction) => <TransactionCell transaction={transaction} key={transaction.id} />) : ''
             }
 
         </Container>
