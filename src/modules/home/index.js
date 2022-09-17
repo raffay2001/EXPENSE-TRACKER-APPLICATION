@@ -9,6 +9,7 @@ const Container = styled.div`
   align-items: center;
   margin: 30px 0px 10px;
   font-family: 'Montserrat', sans-serif;
+  width: 360px;
 `;
 
 const HomeComponent = (props) => {
