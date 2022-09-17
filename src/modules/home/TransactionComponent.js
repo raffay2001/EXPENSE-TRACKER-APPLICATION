@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
     font-family: 'Montserrat';
     font-size: 18px;
@@ -15,15 +15,33 @@ const Container = styled.div`
         padding: 10px 12px;
         border-radius: 4px;
         border: 1px solid lightgray;
+        width: 100%;
     }
     & input:focus {
         border: 1px solid black;
     }
 `;
 
+const Cell = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    align-items: center;
+    font-weight: normal;
+    width: 100%;
+    justify-content: space-between; 
+    border: 1px solid lightgray;
+    border-right: 4px solid ${(props) => (props.isExpense ? 'red' : 'green')};
+`;
+
 const TransactionCell = ({ transaction }) => {
     return (
-        <></>
+        <Cell isExpense={transaction.type === 'EXPENSE'}>
+            <span>{transaction.desc}</span>
+            <span>${transaction.amount}</span>
+        </Cell>
     );
 }
 
@@ -36,7 +54,7 @@ const TransactionComponent = ({ transactions }) => {
                 placeholder='Search'
             />
             {
-                transactions.length ? transactions.map((transaction) => <TransactionCell transaction={transaction} />) : ''
+                transactions.length ? transactions.map((transaction) => <TransactionCell transaction={transaction} key={transaction.id} />) : ''
             }
 
         </Container>

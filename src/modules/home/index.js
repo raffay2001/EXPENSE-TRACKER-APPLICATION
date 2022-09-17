@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import OverviewComponent from "./OverviewComponent";
 import TransactionComponent from "./TransactionComponent";
@@ -15,13 +16,31 @@ const Container = styled.div`
 
 const HomeComponent = (props) => {
     const [transactions, setTransactions] = useState([]);
+    const [expense, setExpense] = useState(0);
+    const [income, setIncome] = useState(0);
     const updateTransactions = (payload) => {
         setTransactions([...transactions, payload]);
     }
+
+
+    useEffect(() => {
+        let expense = 0;
+        let income = 0;
+        transactions.map(
+            (transaction) => {
+                transaction.type === 'EXPENSE'
+                    ? expense += transaction.amount
+                    : income += transaction.amount
+            }
+        );
+        setExpense(expense);
+        setIncome(income);
+    }, [transactions]);
+
     return (
         <Container>
-            <OverviewComponent updateTransactions={updateTransactions} />
-            <TransactionComponent transactions={transactions}/>
+            <OverviewComponent updateTransactions={updateTransactions} expense={expense} income={income}/>
+            <TransactionComponent transactions={transactions} />
         </Container>
     );
 }

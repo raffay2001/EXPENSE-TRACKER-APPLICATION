@@ -101,7 +101,7 @@ const AddTransactionView = ({ toggleAddTxn, updateTransactions }) => {
     }, []);
 
     const addTransaction = () => {
-        console.log({ amount: Number(amount), desc, type });
+        console.log({ amount: Number(amount), desc, type, id: Date.now() });
         toggleAddTxn(prevState => !prevState);
         updateTransactions({ amount, desc, type });
     }
