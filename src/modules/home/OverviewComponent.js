@@ -101,7 +101,7 @@ const AddTransactionView = ({ toggleAddTxn, updateTransactions }) => {
     }, []);
 
     const addTransaction = () => {
-        console.log({ amount: Number(amount), desc, type, id: Date.now() });
+        console.log({ amount: parseInt(amount), desc, type, id: Date.now() });
         toggleAddTxn(prevState => !prevState);
         updateTransactions({ amount, desc, type });
     }
@@ -152,23 +152,23 @@ const AddTransactionView = ({ toggleAddTxn, updateTransactions }) => {
     );
 }
 
-const OverviewComponent = ({ updateTransactions }) => {
+const OverviewComponent = ({ updateTransactions, expense, income }) => {
 
     const [isAddTxnVisible, toggleAddTxn] = useState(true);
 
     return (
         <Container>
             <BalanceBox>
-                Balance: $10000
+                Balance: ${income - expense}
                 <AddTransaction onClick={() => toggleAddTxn(prevState => !prevState)}>{isAddTxnVisible ? 'Cancel' : 'ADD'}</AddTransaction>
             </BalanceBox>
             {isAddTxnVisible && <AddTransactionView toggleAddTxn={toggleAddTxn} updateTransactions={updateTransactions} />}
             <ExpenseContainer>
                 <AmountBox isIncome={false}>
-                    Expense <span>$1200</span>
+                    Expense <span>${expense}</span>
                 </AmountBox>
                 <AmountBox isIncome={true}>
-                    Income <span>$1200</span>
+                    Income <span>${income}</span>
                 </AmountBox>
             </ExpenseContainer>
         </Container>
