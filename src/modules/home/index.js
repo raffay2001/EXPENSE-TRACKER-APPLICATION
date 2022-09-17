@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import OverviewComponent from "./OverviewComponent";
 import TransactionComponent from "./TransactionComponent";
@@ -13,9 +14,13 @@ const Container = styled.div`
 `;
 
 const HomeComponent = (props) => {
+    const [transactions, setTransactions] = useState([]);
+    const updateTransactions = (payload) => {
+        setTransactions([...transactions, payload]);
+    }
     return (
         <Container>
-            <OverviewComponent />
+            <OverviewComponent updateTransactions={updateTransactions} />
             <TransactionComponent />
         </Container>
     );

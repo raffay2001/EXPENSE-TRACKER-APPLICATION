@@ -65,7 +65,31 @@ const RadioBox = styled.div`
     }
 `
 
-const AddTransactionView = () => {
+const ExpenseContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin: 20px;
+`;
+
+const AmountBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    border: 1px solid #e6e8e9;
+    padding: 15px 20px;
+    width: 135px;
+    gap: 5px;
+    font-size: 14px;
+    & span {
+        font-weight: bold;
+        font-size: 20px;
+        color: ${(props) => (props.isIncome ? 'green' : 'red')}
+    }
+`;
+
+
+const AddTransactionView = ({ toggleAddTxn, updateTransactions }) => {
 
     const [amount, setAmount] = useState('');
     const [desc, setDesc] = useState('');
@@ -74,23 +98,32 @@ const AddTransactionView = () => {
 
     useEffect(() => {
         amountRef.current.focus();
-    });
+    }, []);
+
+    const addTransaction = () => {
+        console.log({ amount: Number(amount), desc, type });
+        toggleAddTxn(prevState => !prevState);
+        updateTransactions({ amount, desc, type });
+    }
 
     return (
         <AddTransactionContainer>
             <input
-                type="text"
+                required
+                type="number"
                 placeholder='Amount'
                 value={amount} onChange={(e) => setAmount(e.target.value)}
                 ref={amountRef}
             />
             <input
+                required
                 type="text"
                 placeholder='Description'
                 value={desc} onChange={(e) => setDesc(e.target.value)}
             />
             <RadioBox>
                 <input
+                    required
                     type="radio"
                     id='expense'
                     name='type'
@@ -102,6 +135,7 @@ const AddTransactionView = () => {
                     Expense
                 </label>
                 <input
+                    required
                     type="radio"
                     id='income'
                     name='type'
@@ -113,12 +147,12 @@ const AddTransactionView = () => {
                     Income
                 </label>
             </RadioBox>
-            <AddTransaction>Add Transaction</AddTransaction>
+            <AddTransaction onClick={addTransaction}>Add Transaction</AddTransaction>
         </AddTransactionContainer>
     );
 }
 
-const OverviewComponent = ({ }) => {
+const OverviewComponent = ({ updateTransactions }) => {
 
     const [isAddTxnVisible, toggleAddTxn] = useState(true);
 
@@ -128,7 +162,15 @@ const OverviewComponent = ({ }) => {
                 Balance: $10000
                 <AddTransaction onClick={() => toggleAddTxn(prevState => !prevState)}>{isAddTxnVisible ? 'Cancel' : 'ADD'}</AddTransaction>
             </BalanceBox>
-            {isAddTxnVisible && <AddTransactionView />}
+            {isAddTxnVisible && <AddTransactionView toggleAddTxn={toggleAddTxn} updateTransactions={updateTransactions} />}
+            <ExpenseContainer>
+                <AmountBox isIncome={false}>
+                    Expense <span>$1200</span>
+                </AmountBox>
+                <AmountBox isIncome={true}>
+                    Income <span>$1200</span>
+                </AmountBox>
+            </ExpenseContainer>
         </Container>
     );
 }
