@@ -5,13 +5,41 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 30px 0 10px;
+    gap: 10px;
     font-family: 'Montserrat';
+    font-size: 18px;
+    width: 100%;
+    font-weight: bold;
+    & input {
+        outline: none;
+        padding: 10px 12px;
+        border-radius: 4px;
+        border: 1px solid lightgray;
+    }
+    & input:focus {
+        border: 1px solid black;
+    }
 `;
 
-const TransactionComponent = ({}) => {
+const TransactionCell = ({ transaction }) => {
     return (
-        <Container>TransactionComponent</Container>
+        <></>
+    );
+}
+
+const TransactionComponent = ({ transactions }) => {
+    return (
+        <Container>
+            Transactions
+            <input
+                type="text"
+                placeholder='Search'
+            />
+            {
+                transactions.length ? transactions.map((transaction) => <TransactionCell transaction={transaction} />) : ''
+            }
+
+        </Container>
     );
 }
 

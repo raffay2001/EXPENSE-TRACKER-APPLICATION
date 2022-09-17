@@ -36,7 +36,7 @@ const AddTransaction = styled.div`
 const AddTransactionContainer = styled.div`
     display: flex;
     flex-direction: column;
-    border: 1px solid #e6e8e5;
+    border: 1px solid lightgray;
     gap: 15px;
     padding: 20px 20px;
     margin: 10px 20px;
@@ -47,7 +47,7 @@ const AddTransactionContainer = styled.div`
         outline: none;
         padding: 10px 12px;
         border-radius: 4px;
-        border: 1px solid #e6e8e9;
+        border: 1px solid lightgray;
     }
     & input:focus {
         border: 1px solid black;
@@ -76,7 +76,7 @@ const AmountBox = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: 4px;
-    border: 1px solid #e6e8e9;
+    border: 1px solid lightgray;
     padding: 15px 20px;
     width: 135px;
     gap: 5px;

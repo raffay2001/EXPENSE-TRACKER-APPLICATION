@@ -21,7 +21,7 @@ const HomeComponent = (props) => {
     return (
         <Container>
             <OverviewComponent updateTransactions={updateTransactions} />
-            <TransactionComponent />
+            <TransactionComponent transactions={transactions}/>
         </Container>
     );
 }
